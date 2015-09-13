@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RotaTRIS</title>
+    <link rel="stylesheet" href="style.min.css" />
+    <meta name="viewport" content="width=496, user-scalable=no"/>
+    <meta name="charset" content="utf-8"/>
+    <meta property="og:url"           content="http://kirilloid.ru/rotatris/" />
+    <meta property="og:type"          content="website" />
+    <meta property="og:title"         content="ROTATris" />
+    <meta property="og:description"   content="Your description" />
+    <meta property="og:image"         content="http://kirilloid.ru/pub/rotatris.png" />    
+</head>
+<body>
+    <div id="intro" class="center"></div>
+    <div id="menu" class="center">
+        <div id="menuView" class="menuActive"></div>
+        <div id="menuLeft" class="menuActive"></div>
+        <div id="menuRight" class="menuActive"></div>
+    </div>
+    <table id="records" class="center hidden">
+        <tr><td>#</td><td>name</td><td class="score">score</td></tr>
+    </table>
+    <div id="social" class="hidden">
+        <a href="https://twitter.com/share" class="twitter-share-button" id="tweet">Tweet</a>
+        <div class="fb-like" data-href="http://kirilloid.ru/rotatris/" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+        <g:plusone data-size="medium"></g:plusone>
+    </div>
+    <div id="playfield" class="hidden">
+        <div id="info">
+            next <div id="next"></div>
+            <div id="stats">
+                <span id="level"></span><br>
+                <span id="points"></span>
+            </div>
+        </div>
+        <div id="game" class="center">
+            <div id="matrix"></div>
+            <div id="figure"></div>
+        </div>
+        <div id="controls">
+            <div id="controls-left">
+                <button data-code="rotate">&#8630;</button>
+                <button data-code="LEFT">&#8676;</button>
+                <button data-code="left">&larr;</button>
+            </div>
+
+            <div id="controls-right">
+                <button data-code="right">&rarr;</button>
+                <button data-code="RIGHT">&#8677;</button>
+                <button data-code="corotate">&#8631;</button>
+            </div>
+        </div>
+    </div>
+    <div id="gameOver" class="center hidden"></div>
+    <dl id="keySheet" class="center hidden">
+        <dt><kbd>&rarr;</kbd></dt>
+        <dd>move right</dd>
+        <dt><kbd>&larr;</kbd></dt>
+        <dd>move left</dd>
+        <dt><kbd>&uarr;</kbd></dt>
+        <dd>rotate (clockwise)</dd>
+        <dt><kbd>Space</kbd></dt>
+        <dd>drop</dd>
+        <dt><kbd>P</kbd></dt>
+        <dd>pause</dd>
+        <dt><kbd>&darr;</kbd> (<em>holding</em>)</dt>
+        <dd>"soft" drop</dd>
+        <dt><kbd class="shift"></kbd> + <kbd>&rarr;</kbd></dt>
+        <dd>shift to the right edge</dd>
+        <dt><kbd class="shift"></kbd> + <kbd>&larr;</kbd></dt>
+        <dd>shift to the left edge</dd>
+        <dt><kbd class="ctrl"></kbd> + <kbd>&rarr;</kbd></dt>
+        <dd>rotate to the right edge</dd>
+        <dt><kbd class="ctrl"></kbd> + <kbd>&larr;</kbd></dt>
+        <dd>shift to the left edge</dd>
+        <dt><kbd class="enter"></kbd></dt>
+        <dd>drop</dd>
+    </dl>
+    <div id="about" class="center hidden">
+        <h1>ROTATRIS</h1>
+        <p>Game created for <a href="http://js13kgames.com/">js13k competition</a></p>
+        <p>Source code available on <a href="https://github.com/kirilloid/rotatris/">github</a></p>
+    </div>
+    <script src="app.js"></script>
+    <div id="fb-root"></div>
+</body>
+</html>

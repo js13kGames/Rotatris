@@ -1,0 +1,17 @@
+{
+  "name": "rotatris",
+  "description": "",
+  "directories": {
+    "test": "test"
+  },
+  "author": "Kirill Sukhomlin",
+  "license": "ISC",
+  "devDependencies": {
+    "bower": "1.5.2",
+    "grunt": "0.4.5",
+    "grunt-contrib-compress": "^0.13.0",
+    "grunt-contrib-cssmin": "0.13.0",
+    "grunt-contrib-jshint": "0.11.3",
+    "grunt-contrib-requirejs": "0.4.4"
+  }
+}
