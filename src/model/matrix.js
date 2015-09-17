@@ -79,7 +79,7 @@ define('model/matrix', ['model/stream', 'utils'], function (Stream, Utils) {
         this.event.layers = layersToRemove;
         return layersToRemove.length;
     }
-    Utils.extend.call(BaseModel.prototype, {
+    Utils.extend(BaseModel.prototype, {
         get: function(x, y) {
             if (Math.abs(y) > this.size) return 0; // throw new RangeError('y is out of range');
             if (Math.abs(x) > this.size) return 0; // throw new RangeError('x is out of range');
@@ -170,6 +170,6 @@ define('model/matrix', ['model/stream', 'utils'], function (Stream, Utils) {
         };
         BaseModel.call(this, size);
     }
-    Utils.extend.call(Model.prototype, BaseModel.prototype);
+    Utils.extend(Model.prototype, BaseModel.prototype);
     return Model;
 });

@@ -4,7 +4,7 @@ define('model/queue', ['utils'], function (Utils) {
         this.q = [];
         this.idx = 0;
     }
-    Utils.extend.call(Queue.prototype, {
+    Utils.extend(Queue.prototype, {
         push: function (item) {
             this.q.push(item);
             if (this.q.length > this.idx * 2 && this.idx > this.size) {

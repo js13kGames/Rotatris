@@ -14,17 +14,18 @@ define('model/records', ['utils'], function (Utils) {
     function Records() {
         this.load();
     }
-    Utils.extend.call(Records.prototype, {
+    var key = 'rotatris.records';
+    Utils.extend(Records.prototype, {
         load: function () {
             try {
-                this.table = JSON.parse(localStorage.getItem('rotatris.records')) || defaultTable;
+                this.table = JSON.parse(localStorage.getItem(key)) || defaultTable;
             } catch (e) {
-                this.table = defaultTable();
+                this.table = defaultTable;
             }
         },
         save: function () {
             try {
-                localStorage.setItem('rotatris.records', JSON.stringify(this.table));
+                localStorage.setItem(key, JSON.stringify(this.table));
             } catch (e) {}
         },
         position: function (points) {
@@ -34,14 +35,11 @@ define('model/records', ['utils'], function (Utils) {
             return idx;
         },
         add: function (name, points, idx) {
-            if (idx === 10) return;
             this.table.splice(idx, 0, {
                 name: name,
                 points: points
             });
-            if (this.table.length > 10) {
-                this.table.push();
-            }
+            this.table = this.table.slice(0, 10 + (idx === 10));
         }
     });
     return Records;

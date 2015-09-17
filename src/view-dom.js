@@ -1,4 +1,4 @@
-define('view-dom', ['utils'], function (Utils) {
+define('view-dom', ['utils'], function (/*Utils*/) {
     function parity (x, y) {
         return Math.max(Math.abs(x), Math.abs(y)) & 1;
     }
@@ -83,13 +83,6 @@ define('view-dom', ['utils'], function (Utils) {
                 el.removeChild(cell);
                 map[key] = null;
             }, this.ANIMATION_TIME);
-        };
-        this.burnAll = function () {
-            var key, parts;
-            for (key in map) {
-                parts = key.split('_');
-                setTimeout(this.burn.bind(this, parts[0], parts[1]), Utils.rand(this.ANIMATION_TIME));
-            }
         };
         this.clear = function () {
             rings = 0;

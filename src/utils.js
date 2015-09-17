@@ -32,10 +32,13 @@ define('utils', function () {
         },
         pressAnyKey: function (callback) {
             var body = document.body;
+            this.show(window.anyKey);
+            var hide = this.hide;
             function listen (event) {
                 event.stopPropagation();
                 body.removeEventListener('click', listen, true);
                 body.removeEventListener('keydown', listen, true);
+                hide(window.anyKey);
                 callback();
             }
             body.addEventListener('click', listen, true);
@@ -47,13 +50,10 @@ define('utils', function () {
         hide: function (el) {
             el.classList.add('hidden');
         },
-        extend: function () {
-            if (this === window) throw new RangeError('wrong this passed');
-            [].forEach.call(arguments, function (obj) {
-                for (var key in obj) {
-                    this[key] = obj[key];
-                }
-            }, this);
+        extend: function (destination, source) {
+            for (var key in source) {
+                destination[key] = source[key];
+            }
         },
         loadScript: function (document, tagName, id, src) {
             var js, fjs = document.getElementsByTagName(tagName)[0];

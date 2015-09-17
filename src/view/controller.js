@@ -52,7 +52,7 @@ define('view/controller',
         });
         setTimeout(Utils.show.bind(null, window.figure), 0);
     }
-    Utils.extend.call(Controller.prototype, {
+    Utils.extend(Controller.prototype, {
         /** @param {number} @param {boolean} */
         updateLines: function (lines, set) {
             this.lines = !set * this.lines + lines;
@@ -87,20 +87,30 @@ define('view/controller',
             this.view.fillRings(radius);
         },
         onKeyPress: function (name) {
-            if ((!this.game.over) &&
-                (!this.animation || (name !== 'tick' && name !== 'drop'))) {
-                this.game[name]();
+            if (this.game.over) { return; }
+            if (this.animation && (name === 'tick' || name === 'drop')) { return; }
+            if (this.paused && name !== 'pause') { return; }
+            if (name === 'pause') { return this.togglePause(); }
+            this.game[name]();
+        },
+        togglePause: function () {
+            if (this.paused) {
+                this.ticker.start();
+                Utils.show(window.game);
+                Utils.hide(window.keySheet);
+                window.pauseHint.innerHTML = 'Press <kbd>P</kbd> for pause / help.';
+            } else {
+                this.ticker.stop();
+                Utils.hide(window.game);
+                Utils.show(window.keySheet);
+                window.pauseHint.innerHTML = 'Press <kbd>P</kbd> to continue playing.';
             }
+            this.paused = !this.paused;
         },
-        pause: function () {
-            this.ticker.stop();
-            Utils.hide(window.game);
-        },
-        resume: function () {
-            this.ticker.start();
-            Utils.show(window.game);
-        },
-        /** @param {View} @param {Figure} */
+        /**
+         * @param {View}
+         * @param {Figure}
+         */
         setupEvents: function () {
             this.pointStream.on(this.updatePoints.bind(this));
             this.figureStream.on(drawFigure.bind(null, this.nextView));
@@ -171,6 +181,8 @@ define('view/controller',
             this.updateLines(0, true);
             this.view.clear();
             this.game.reset();
+            this.togglePause();
+            this.togglePause();
             if (this.zen) {
                 Utils.hide(window.stats);
             } else {

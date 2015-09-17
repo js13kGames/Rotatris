@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>RotaTRIS</title>
+    <title>ROTATris</title>
     <link rel="stylesheet" href="style.min.css" />
     <meta name="viewport" content="width=496, user-scalable=no"/>
     <meta name="charset" content="utf-8"/>
-    <meta property="og:url"           content="http://kirilloid.ru/rotatris/" />
-    <meta property="og:type"          content="website" />
-    <meta property="og:title"         content="ROTATris" />
-    <meta property="og:description"   content="Your description" />
-    <meta property="og:image"         content="http://kirilloid.ru/pub/rotatris.png" />    
+    <meta property="og:url"   content="http://kirilloid.ru/rotatris/" />
+    <meta property="og:image" content="http://kirilloid.ru/rotatris/rotatris-160x160.png" />
+    <meta property="og:type"  content="website" />
+    <meta property="og:title" content="ROTATris" />
 </head>
 <body>
-    <div id="intro" class="center"></div>
+    <div id="intro"></div>
     <div id="menu" class="center">
         <div id="menuView" class="menuActive"></div>
         <div id="menuLeft" class="menuActive"></div>
@@ -51,36 +50,62 @@
                 <button data-code="corotate">&#8631;</button>
             </div>
         </div>
+        <div id="pauseHint" class="center">
+        </div>
     </div>
     <div id="gameOver" class="center hidden"></div>
-    <dl id="keySheet" class="center hidden">
-        <dt><kbd>&rarr;</kbd></dt>
-        <dd>move right</dd>
-        <dt><kbd>&larr;</kbd></dt>
-        <dd>move left</dd>
-        <dt><kbd>&uarr;</kbd></dt>
-        <dd>rotate (clockwise)</dd>
-        <dt><kbd>Space</kbd></dt>
-        <dd>drop</dd>
-        <dt><kbd>P</kbd></dt>
-        <dd>pause</dd>
-        <dt><kbd>&darr;</kbd> (<em>holding</em>)</dt>
-        <dd>"soft" drop</dd>
-        <dt><kbd class="shift"></kbd> + <kbd>&rarr;</kbd></dt>
-        <dd>shift to the right edge</dd>
-        <dt><kbd class="shift"></kbd> + <kbd>&larr;</kbd></dt>
-        <dd>shift to the left edge</dd>
-        <dt><kbd class="ctrl"></kbd> + <kbd>&rarr;</kbd></dt>
-        <dd>rotate to the right edge</dd>
-        <dt><kbd class="ctrl"></kbd> + <kbd>&larr;</kbd></dt>
-        <dd>shift to the left edge</dd>
-        <dt><kbd class="enter"></kbd></dt>
-        <dd>drop</dd>
-    </dl>
-    <div id="about" class="center hidden">
-        <h1>ROTATRIS</h1>
-        <p>Game created for <a href="http://js13kgames.com/">js13k competition</a></p>
-        <p>Source code available on <a href="https://github.com/kirilloid/rotatris/">github</a></p>
+    <div id="anyKey" class="center hidden">press <kbd>Any</kbd> key to continue</div>
+    <div id="gameInfo" class="center">
+        <div id="dialog" class="hidden">
+            <p id="dialogText"></p>
+            <button id="dialogButtonOk"></button>
+            <button id="dialogButtonCancel"></button>
+        </div>
+        <div id="about" class="hidden">
+            <h2>About</h2>
+            <p>Game created for <a href="http://js13kgames.com/">js13k competition</a></p>
+            <p>Source code available on <a href="https://github.com/kirilloid/rotatris/">github</a></p>
+        </div>
+        <div id="keySheet" class="hidden">
+            <h2>Controls</h2>
+            <dl>
+                <dt><kbd>P</kbd></dt>
+                <dd>pause / continue playing</dd>
+                <dt><kbd>&rarr;</kbd></dt>
+                <dd>move right</dd>
+                <dt><kbd>&larr;</kbd></dt>
+                <dd>move left</dd>
+                <dt><kbd>&uarr;</kbd></dt>
+                <dd>rotate (counter-clockwise)</dd>
+                <dt><kbd>Space</kbd> or <kbd class="enter"></kbd></dt>
+                <dd>drop</dd>
+                <dt><kbd>&darr;</kbd> (<em>holding</em>)</dt>
+                <dd>"soft" drop</dd>
+                <dt><kbd class="shift"></kbd> + <kbd>&rarr;</kbd></dt>
+                <dd>shift to the right edge</dd>
+                <dt><kbd class="shift"></kbd> + <kbd>&larr;</kbd></dt>
+                <dd>shift to the left edge</dd>
+                <dt><kbd class="ctrl"></kbd> + <kbd>&rarr;</kbd></dt>
+                <dd>rotate (counter-clockwise)</dd>
+                <dt><kbd class="ctrl"></kbd> + <kbd>&larr;</kbd></dt>
+                <dd>rotate (clockwise)</dd>
+            </dl>
+        </div>
+        <div id="scoringSheet" class="hidden">
+            <h2>Scoring</h2>
+            <ul>
+                <li>everything is multiplied by (level + 1)</li>
+                <li>1 point for every figure landed</li>
+                <li>1 point for every 5 cells' distance in <a href="http://tetrisconcept.net/wiki/Drop" target="_blank">soft drop</a></li>
+                <li>1 point for every 3 cells' distance in <a href="http://tetrisconcept.net/wiki/Drop" target="_blank">hard drop</a></li>
+                <li>2 extra points for hard drop of distance 15 cells or more</li>
+                <li>40 points for collapsing one layer</li>
+                <li>100 points for collapsing two layers</li>
+                <li>300 points for collapsing three layers</li>
+                <li>1200 points for collapsing four layers</li>
+                <li>for sequential collapses, scores are multiplied by the number of the wave squared</li>
+            </ul>
+        </div>
     </div>
     <script src="app.js"></script>
     <div id="fb-root"></div>

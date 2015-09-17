@@ -58,7 +58,7 @@ define('view/menu',
         window.menuView. onclick = this.drop .bind(this);
         this.back = this.back.bind(this);
     }
-    Utils.extend.call(Menu.prototype, {
+    Utils.extend(Menu.prototype, {
         redraw: function () {
             this.view.rotate(-90 * this.angle);
         },

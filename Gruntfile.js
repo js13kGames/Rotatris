@@ -20,8 +20,8 @@ module.exports = function(grunt) {
           baseUrl: "src/",
           name: "../bower_components/almond/almond",
           include: ['view/app.js'],
-          out: "app.js"/*,
-          optimize: 'uglify2',
+          out: "app.js",
+          optimize: 'uglify2'/*,
           generateSourceMaps: true,
           preserveLicenseComments: false,
           useSourceUrl: true          */

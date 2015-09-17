@@ -1,5 +1,5 @@
-require(['view/controller', 'view/menu', 'view/records', 'view/social', 'view-dom', 'utils'],
-        function (Controller, Menu, RecordsView, social, View, Utils) {
+require(['view/controller', 'view/menu', 'view/records', 'view/social', 'Keyboard', 'view-dom', 'utils'],
+        function (Controller, Menu, RecordsView, social, Keyboard, View, Utils) {
     Utils.hide(window.menu);
     var bodyClassList = document.body.classList;
     if ('ontouchstart' in document.body) {
@@ -29,19 +29,23 @@ require(['view/controller', 'view/menu', 'view/records', 'view/social', 'view-do
     gameOverView.drawBitmap(bitmaps.game, {});
     gameOverView.drawBitmap(bitmaps.over, { offset: -8 });
     var recordsView = new RecordsView();
+    var unused;
     /*var menu = */new Menu([{
         root: window.playfield,
         lines: [bitmaps.mew, bitmaps.game],
         color: Utils.colorCodeToRGB(5),
         enter: function (back) {
             controller.zen = false;
-            controller.reset(back);
+            controller.reset(function () {
+                Utils.show(window.records);
+                Utils.hide(window.gameOver);
+                recordsView.drawWith(controller.points, function () {
+                    Utils.pressAnyKey(back);
+                });
+            });
         },
         leave: function () {
-            Utils.hide(window.gameOver);
-            Utils.hide(window.menu);
-            Utils.show(window.records);
-            recordsView.drawWith(controller.points);
+            Utils.hide(window.records);
         }
     }, {
         root: window.playfield,
@@ -59,9 +63,14 @@ require(['view/controller', 'view/menu', 'view/records', 'view/social', 'view-do
         lines: [bitmaps.game, bitmaps.info],
         color: Utils.colorCodeToRGB(6),
         enter: function (back) {
+            Utils.show(window.keySheet);
+            Utils.show(window.scoringSheet);
             Utils.pressAnyKey(back);
         },
         leave: function () {
+            Utils.hide(window.keySheet);
+            Utils.hide(window.scoringSheet);
+            unused = window.gameInfo.offsetHeight;
         }
     }, {
         root: window.records,
@@ -75,7 +84,7 @@ require(['view/controller', 'view/menu', 'view/records', 'view/social', 'view-do
         }
     }]);
     // intro
-    var views = ['ro', 'ta', 'tr', 'is'].map(function (syllableName) {
+    /*var views = */['ro', 'ta', 'tr', 'is'].map(function (syllableName) {
         var elt = document.createElement('div');
         elt.id = 'intro-' + syllableName;
         elt.className = 'intro';
@@ -84,13 +93,15 @@ require(['view/controller', 'view/menu', 'view/records', 'view/social', 'view-do
         view.drawBitmap(bitmaps[syllableName], { offset: -4 });
         return view;
     });
-    Utils.pressAnyKey(function endIntro () {
-        views.forEach(function (view) { view.burnAll(); });
-        setTimeout(function () {
-            Utils.hide(window.intro);
-            Utils.show(window.menu);
-            social();
-            Utils.show(window.social);
-        }, views[0].ANIMATION_TIME * 2);
+    //Utils.pressAnyKey(function breakIntro () {
+        // views.forEach(function (view) { view.burnAll(); });
+    var firstShow = true;
+    Keyboard.on(function (name) {
+        if (name === 'drop') firstShow = false;
     });
+    setTimeout(function () {
+        if (firstShow) {
+            Utils.show(window.menu);
+        }
+    }, 1800);
 });

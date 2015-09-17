@@ -2,7 +2,7 @@ define('model/stream', ['model/queue', 'utils'], function (Queue, Utils) {
     function Stream() {
         this.listeners = [];
     }
-    Utils.extend.call(Stream.prototype, {
+    Utils.extend(Stream.prototype, {
         push: function (event) {
             this.listeners.forEach(function (callback) {
                 callback(event);

@@ -10,7 +10,7 @@ define('model/game', ['model/matrix', 'model/stream', 'utils'], function (Model,
             misc: new Stream()
         };
     }
-    Utils.extend.call(Game.prototype, {
+    Utils.extend(Game.prototype, {
         next: function (figure) {
             this.figure = figure;
             this.distance = this.size + (this.size >> 2);

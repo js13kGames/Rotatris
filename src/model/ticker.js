@@ -17,7 +17,7 @@ define('model/ticker', ['model/stream', 'utils'], function (Stream, Utils) {
         this.timer = 0;
         this.tick = tick.bind(this);
     }
-    Utils.extend.call(Ticker.prototype, {
+    Utils.extend(Ticker.prototype, {
         start: function () {
             if (this.running) { return; }
             this.running = true;
